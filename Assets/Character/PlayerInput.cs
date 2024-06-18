@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour
         HandleInventoryInput();
         HandleChangeEquipmentInput();
         HandleInteractionInput();
+        HandleChangeCharacterInput();
     }
 
     void HandleMovementInput()
@@ -29,8 +30,6 @@ public class PlayerInput : MonoBehaviour
 
         Vector2 dir = new Vector2(horizontalValue, verticalValue);
         dir.Normalize();
-
-        Debug.Log(dir);
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -66,5 +65,14 @@ public class PlayerInput : MonoBehaviour
         if (!isKeyDown) return;
 
         characterController.ChangeEquipment();
+    }
+
+    void HandleChangeCharacterInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.Q);
+
+        if (!isKeyDown) return;
+
+        characterController.ChangeCharacter();
     }
 }
