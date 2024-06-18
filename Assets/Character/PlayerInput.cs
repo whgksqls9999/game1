@@ -16,7 +16,8 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleMovementInput();   
+        HandleMovementInput();
+        HandleInventoryInput();
     }
 
     void HandleMovementInput()
@@ -36,5 +37,23 @@ public class PlayerInput : MonoBehaviour
         }
 
         characterController.Walk(dir);
+    }
+
+    void HandleInventoryInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.X);
+
+        if (!isKeyDown) return;
+
+        characterController.OpenInventory();
+    }
+
+    void HandleInteractionInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.Z);
+
+        if (!isKeyDown) return;
+
+        characterController.Interact();
     }
 }

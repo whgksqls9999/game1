@@ -13,6 +13,8 @@ public class CharacterController : MonoBehaviour
     private int mentality = 100;
     private int orientation = 100;
 
+    private bool isOpenInventory = false;
+
     private MoveState moveState = MoveState.stop;
     private LifeState lifeState = LifeState.alive;
 
@@ -52,5 +54,23 @@ public class CharacterController : MonoBehaviour
         if (!controllable) return;
 
         transform.Translate(RUN_SPEED * dir * Time.deltaTime);
+    }
+
+    public void OpenInventory()
+    {
+        if (!isOpenInventory)
+        {
+            isOpenInventory = true;
+            Debug.Log("::인벤토리 오픈::");
+            return;
+        }
+        isOpenInventory = false;
+        Debug.Log("::인벤토리 클로즈::");
+        
+    }
+
+    public void Interact()
+    {
+        Debug.Log("::상호작용::");
     }
 }
