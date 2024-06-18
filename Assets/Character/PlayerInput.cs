@@ -18,6 +18,8 @@ public class PlayerInput : MonoBehaviour
     {
         HandleMovementInput();
         HandleInventoryInput();
+        HandleChangeEquipmentInput();
+        HandleInteractionInput();
     }
 
     void HandleMovementInput()
@@ -55,5 +57,14 @@ public class PlayerInput : MonoBehaviour
         if (!isKeyDown) return;
 
         characterController.Interact();
+    }
+
+    void HandleChangeEquipmentInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.A);
+
+        if (!isKeyDown) return;
+
+        characterController.ChangeEquipment();
     }
 }

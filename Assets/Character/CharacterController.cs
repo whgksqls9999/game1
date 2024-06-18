@@ -73,4 +73,8 @@ public class CharacterController : MonoBehaviour
     {
         Debug.Log("::상호작용::");
     }
+    public void ChangeEquipment()
+    {
+        Debug.Log("::장비 변경::");
+    }
 }
