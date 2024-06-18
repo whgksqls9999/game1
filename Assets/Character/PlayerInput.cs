@@ -16,7 +16,11 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleMovementInput();   
+        HandleMovementInput();
+        HandleInventoryInput();
+        HandleChangeEquipmentInput();
+        HandleInteractionInput();
+        HandleChangeCharacterInput();
     }
 
     void HandleMovementInput()
@@ -27,8 +31,6 @@ public class PlayerInput : MonoBehaviour
         Vector2 dir = new Vector2(horizontalValue, verticalValue);
         dir.Normalize();
 
-        Debug.Log(dir);
-
         if (Input.GetKey(KeyCode.LeftShift))
         {
             characterController.Run(dir);
@@ -36,5 +38,41 @@ public class PlayerInput : MonoBehaviour
         }
 
         characterController.Walk(dir);
+    }
+
+    void HandleInventoryInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.X);
+
+        if (!isKeyDown) return;
+
+        characterController.OpenInventory();
+    }
+
+    void HandleInteractionInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.Z);
+
+        if (!isKeyDown) return;
+
+        characterController.Interact();
+    }
+
+    void HandleChangeEquipmentInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.A);
+
+        if (!isKeyDown) return;
+
+        characterController.ChangeEquipment();
+    }
+
+    void HandleChangeCharacterInput()
+    {
+        bool isKeyDown = Input.GetKeyDown(KeyCode.Q);
+
+        if (!isKeyDown) return;
+
+        characterController.ChangeCharacter();
     }
 }
