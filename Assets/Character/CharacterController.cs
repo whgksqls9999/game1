@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +6,26 @@ using static CharacterState;
 
 public class CharacterController : MonoBehaviour
 {
-    public const float WALK_SPEED = 4f;
-    public const float RUN_SPEED = 8f;
+    // 상수
+    public const float WALK_SPEED = 4f; // 걷기 속도
+    public const float RUN_SPEED = 8f;  // 달리기 속도
+    public const float STAMINA_DECREASE_RATE = 20f; // 스테미너 감소 속도
+    public const float DIZZINESS_RUNNABLE_TIME = 3f; // 현기증 상태에서 달릴 수 있는 시간
 
-    private int hp = 100;
-    private int stamina = 100;
-    private int mentality = 100;
-    private int orientation = 100;
+    // 기본 속성
+    public int hp = 100; // 체력
+    public int stamina = 100; // 달리기시 소모하는 스테미너
+    public int mentality = 100; // 정신력
+    public int orientation = 0; // 시야 방향
 
-    private bool isOpenInventory = false;
+    public bool dizzy = false; // 현기증 발생 여부
+    public bool isOpenInventory = false; // 인벤토리 오픈 여부 - 이건 추후에 시스템쪽으로 빼는게 날 듯
 
-    private MoveState moveState = MoveState.stop;
-    private LifeState lifeState = LifeState.alive;
+    // 동작 관련 상태 관리
+    public MoveState moveState = MoveState.stop; // 이동 상태 [stop, walk, run]
+    public LifeState lifeState = LifeState.alive; // 생존 상태 [alive, dead]
 
-    private bool controllable = true;
+    public bool controllable = true;
 
 
     // Start is called before the first frame update
@@ -81,5 +88,10 @@ public class CharacterController : MonoBehaviour
     public void ChangeCharacter()
     {
         Debug.Log("::캐릭터 변경::");
+    }
+
+    public void CheckDIzzyRunning()
+    {
+
     }
 }
