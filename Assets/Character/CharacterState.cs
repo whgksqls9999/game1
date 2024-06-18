@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State : MonoBehaviour
+public class CharacterState : MonoBehaviour
 {
+
     public enum MoveState
     {
         stop,
@@ -16,4 +17,6 @@ public class State : MonoBehaviour
         alive,
         dead
     }
+
+
 }
