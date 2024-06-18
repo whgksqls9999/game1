@@ -28,6 +28,9 @@ public class PlayerInput : MonoBehaviour
         float horizontalValue = Input.GetAxisRaw("Horizontal");
         float verticalValue = Input.GetAxisRaw("Vertical");
 
+        // 아무 움직임이 없다면 메서드 벗어나기
+        if (horizontalValue == 0 && verticalValue == 0) return;
+
         Vector2 dir = new Vector2(horizontalValue, verticalValue);
         dir.Normalize();
 

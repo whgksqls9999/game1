@@ -13,9 +13,9 @@ public class CharacterController : MonoBehaviour
     public const float DIZZINESS_RUNNABLE_TIME = 3f; // 현기증 상태에서 달릴 수 있는 시간
 
     // 기본 속성
-    public int hp = 100; // 체력
-    public int stamina = 100; // 달리기시 소모하는 스테미너
-    public int mentality = 100; // 정신력
+    public float hp = 100f; // 체력
+    public float stamina = 100f; // 달리기시 소모하는 스테미너
+    public float mentality = 100f; // 정신력
     public int orientation = 0; // 시야 방향
 
     public bool dizzy = false; // 현기증 발생 여부
@@ -58,6 +58,7 @@ public class CharacterController : MonoBehaviour
     {
         if (!controllable) return;
 
+        stamina = Math.Max(stamina - Time.deltaTime * STAMINA_DECREASE_RATE, 0);
         transform.Translate(RUN_SPEED * dir * Time.deltaTime);
     }
 
