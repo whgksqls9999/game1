@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerInput : MonoBehaviour
 {
     CharacterController characterController;
+    CharacterState characterState;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,11 @@ public class PlayerInput : MonoBehaviour
         float verticalValue = Input.GetAxisRaw("Vertical");
 
         // 아무 움직임이 없다면 메서드 벗어나기
-        if (horizontalValue == 0 && verticalValue == 0) return;
+        if (horizontalValue == 0 && verticalValue == 0)
+        {
+            characterController.Stop();
+            return;
+        }
 
         Vector2 dir = new Vector2(horizontalValue, verticalValue);
         dir.Normalize();

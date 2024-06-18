@@ -25,15 +25,12 @@ public class CharacterController : MonoBehaviour
     public MoveState moveState = MoveState.stop; // 이동 상태 [stop, walk, run]
     public LifeState lifeState = LifeState.alive; // 생존 상태 [alive, dead]
 
-    public bool controllable = true;
-
     void Start()
     {
     }
 
     void Update()
     {
-        controllable = checkControllable();
         dizzy = CheckDizzy();
     }
 
@@ -41,23 +38,37 @@ public class CharacterController : MonoBehaviour
     {
         if (lifeState.Equals(LifeState.dead))
         {
+            this.Stop();
             return false;
         }
 
         return true;
     }
 
+    public void Stop()
+    {
+        this.moveState = MoveState.stop;
+    }
+
     public void Walk(Vector2 dir)
     {
-        if (!controllable) return;
+        if (!checkControllable())
+        {
+            return;
+        };
 
+        this.moveState = MoveState.walk;
         transform.Translate(WALK_SPEED * dir * Time.deltaTime);
     }
 
     public void Run(Vector2 dir)
     {
-        if (!controllable) return;
+        if (!checkControllable())
+        {
+            return;
+        }
 
+        this.moveState = MoveState.run;
         stamina = Math.Max(stamina - Time.deltaTime * STAMINA_DECREASE_RATE, 0);
         transform.Translate(RUN_SPEED * dir * Time.deltaTime);
     }
