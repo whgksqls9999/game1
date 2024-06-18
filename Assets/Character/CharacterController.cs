@@ -27,16 +27,14 @@ public class CharacterController : MonoBehaviour
 
     public bool controllable = true;
 
-
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
         controllable = checkControllable();
+        dizzy = CheckDizzy();
     }
 
     bool checkControllable()
@@ -88,6 +86,15 @@ public class CharacterController : MonoBehaviour
     public void ChangeCharacter()
     {
         Debug.Log("::캐릭터 변경::");
+    }
+
+    public bool CheckDizzy()
+    {
+        if (this.stamina == 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void CheckDIzzyRunning()
