@@ -19,6 +19,10 @@ public class CharacterController : MonoBehaviour
     public int orientation = 0; // 시야 방향
 
     public bool dizzy = false; // 현기증 발생 여부
+    public float dizzinessTimer = 0f; // 현기증 발생 후 연속으로 달린 시간
+
+    public bool isControllable = true; // 조작 가능한 상태 여부
+
     public bool isOpenInventory = false; // 인벤토리 오픈 여부 - 이건 추후에 시스템쪽으로 빼는게 날 듯
 
     // 동작 관련 상태 관리
@@ -31,20 +35,31 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
+        isControllable = checkControllable();
         dizzy = CheckDizzy();
+        lifeState = CheckAlive();
+        CheckDIzzyRunning();
     }
 
     bool checkControllable()
     {
         if (lifeState.Equals(LifeState.dead))
         {
-            this.Stop();
             return false;
         }
 
         return true;
     }
 
+    LifeState CheckAlive()
+    {
+        if (this.hp > 0)
+        {
+            return LifeState.alive;
+        }
+
+        return LifeState.dead;
+    }
     public void Stop()
     {
         this.moveState = MoveState.stop;
@@ -52,8 +67,9 @@ public class CharacterController : MonoBehaviour
 
     public void Walk(Vector2 dir)
     {
-        if (!checkControllable())
+        if (!isControllable)
         {
+            this.Stop();
             return;
         };
 
@@ -63,8 +79,9 @@ public class CharacterController : MonoBehaviour
 
     public void Run(Vector2 dir)
     {
-        if (!checkControllable())
+        if (!isControllable)
         {
+            this.Stop();
             return;
         }
 
@@ -111,6 +128,18 @@ public class CharacterController : MonoBehaviour
 
     public void CheckDIzzyRunning()
     {
+        if (this.dizzy && this.moveState == MoveState.run)
+        {
+            dizzinessTimer += Time.deltaTime;
 
+            if (dizzinessTimer >= DIZZINESS_RUNNABLE_TIME)
+            {
+                this.hp = 0;
+                Debug.Log("캐릭터가 심장마비로 사망했습니다.");
+            }
+        } else
+        {
+            dizzinessTimer = 0f;
+        }
     }
 }
